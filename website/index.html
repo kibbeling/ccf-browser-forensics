@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title>CCF Storage editor</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		 <script src="scripts.js"></script> 
+	</head>
+	<body>
+		<h1>Webstorage explorer</h1>
+
+		<div id="notification-container" class="container" >
+			<p id="notification"></p>
+		</div>
+		<div id="write-container" class="container">
+			<h3>Write</h3>
+			<input id="storage_key" type="text" name="key" placeholder="key">
+			<input id="storage_value" type="text" name="value" placeholder="value">
+			<!-- <br> -->
+			<button onclick="addToLocalStorage();">Local storage</button>
+			<button onclick="addToSessionStorage();">Session storage</button>
+		</div>
+
+		<div id="read-container" class="container">
+			<h3>Read</h3>
+			<p>in progress ...</p>
+		</div>
+	</body>
+</html>
