@@ -1,33 +1,37 @@
 
-
-function addToLocalStorage() {
-	var key = document.getElementById("storage_key").value;
-	var value = document.getElementById("storage_value").value;
-	localStorage.setItem(key, value);
+window.onload = function() {
+	updateTables("local");
+	updateTables("session");
 }
 
-function addToSessionStorage() {
+function addToStorage(storageType) {
 	var key = document.getElementById("storage_key").value;
 	var value = document.getElementById("storage_value").value;
-	sessionStorage.setItem(key, value);
-}
-
-function updateTables(storageType) {
-	var newTbody = document.createElement("tbody");
 
 	if (storageType === "local") {
-		var tbody = document.getElementById("local-tbody");
+		localStorage.setItem(key, value);
 	}
 	else if (storageType === "session") {
-		var tbody = document.getElementById("session-tbody");
+		sessionStorage.setItem(key, value);
 	}
 	else {
 		console.log("unknown storage type: " + storageType);
 	}
-	tbody.parentNode.replaceChild(newTbody, tbody);
+	updateTables(storageType);
 }
 
-function populateTbody(storageType) {
+
+function updateTables(storageType) {
+	populateTbody(storageType, function(newTbody) {
+
+		var tbody = document.getElementById(storageType);
+		tbody.parentNode.replaceChild(newTbody, tbody);
+	});
+}
+
+function populateTbody(storageType, callback) {
+	var populatedTbody = document.createElement("tbody");
+	populatedTbody.id = storageType
 	var storage;
 	if (storageType === "local") {
 		storage = localStorage;
@@ -42,10 +46,24 @@ function populateTbody(storageType) {
 	// loop over storage entries
 	for (var property in storage) {
 		if (storage.hasOwnProperty(property)) {
-			console.log(property + ": " + storage[property]);
+		
+			// Insert a row in the table at row index 0
+			var newRow  = populatedTbody.insertRow(populatedTbody.rows.length);
+
+			// Insert a cell in the row at index 0
+			var keyCell = newRow.insertCell(0);
+			var valueCell = newRow.insertCell(1);
+
+			// Append a text node to the cell
+			var key = document.createTextNode(property)
+			keyCell.appendChild(key);
+			var value = document.createTextNode(storage[property]);
+			valueCell.appendChild(value);
+
+			// console.log(property + ": " + storage[property]);
 		}
 	}
-	return true;
+	callback(populatedTbody);
 
 
 }
