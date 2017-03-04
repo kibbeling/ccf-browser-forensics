@@ -7,9 +7,7 @@
 	<body>
 		<h1>Webstorage explorer</h1>
 
-		<div id="notification-container" class="container" >
-			<p id="notification"></p>
-		</div>
+
 		<div id="write-container" class="container">
 			<h3>Write</h3>
 			<input id="storage_key" type="text" name="key" placeholder="key">
@@ -21,7 +19,31 @@
 
 		<div id="read-container" class="container">
 			<h3>Read</h3>
-			<p>in progress ...</p>
+			<h5>Local storage</h5>
+			<table>
+				<thead>
+					<tr>
+						<th>Key</th><th>Value</th>
+					</tr>
+				</thead>
+				<tbody id="local-tbody">
+					<tr>
+						<td>hallo</td><td>test</td>
+					</tr>
+				</tbody>
+			</table>
+			<h5>Session storage</h5>
+			<table>
+				<thead>
+					<tr>
+						<th>Key</th><th>Value</th>
+					</tr>
+				</thead>
+				<tbody id="session-tbody">
+				</tbody>
+			</table>
+
+
 		</div>
 	</body>
 </html>
