@@ -88,10 +88,10 @@ function checkStorageSize(callback) {
 			sessionStorage.setItem('size', 'infinite');
 
 		} catch (e) {
-			localStorage.removeItem('test');
 			localStorage.setItem('size', i ? i - 250 : 0);
 			
 		}
+		localStorage.removeItem('test');
 	}
 
 	// Determine size of sessionStorage if it's not set
@@ -108,10 +108,10 @@ function checkStorageSize(callback) {
 			sessionStorage.setItem('size', 'infinite');
 
 		} catch (e) {
-			sessionStorage.removeItem('test');
 			sessionStorage.setItem('size', i ? i - 250 : 0);
 			
 		}
+		sessionStorage.removeItem('test');
 
 	}
 
