@@ -2,6 +2,7 @@
 window.onload = function() {
 	updateTables("local");
 	updateTables("session");
+	// showStorageSize();
 }
 
 function addToStorage(storageType) {
@@ -64,6 +65,67 @@ function populateTbody(storageType, callback) {
 		}
 	}
 	callback(populatedTbody);
+}
+
+// storage measurement based on: http://jsfiddle.net/bja9g7he/
+function gen(n) {
+	return new Array((n * 1024) + 1).join('a')
+}
+
+function checkStorageSize(callback) {
+
+	// Determine size of localStorage if it's not set
+	if (!localStorage.getItem('size')) {
+		var i = 0;
+		try {
+			// Test up to 10 MB
+			for (i = 0; i <= 10000; i += 250) {
+				localStorage.setItem('test', gen(i));
+			}
+		} catch (e) {
+			localStorage.removeItem('test');
+			localStorage.setItem('size', i ? i - 250 : 0);
+			
+		}
+	}
+
+	// Determine size of sessionStorage if it's not set
+	if (!sessionStorage.getItem('size')) {
+		var i = 0;
+		try {
+			// Test up to 10 MB
+			for (i = 0; i <= 10000; i += 250) {
+				sessionStorage.setItem('test', gen(i));
+			}
+		} catch (e) {
+			sessionStorage.removeItem('test');
+			sessionStorage.setItem('size', i ? i - 250 : 0);
+			
+		}
+	}
+
+	callback();
+}
 
 
+function showStorageSize() {
+
+	checkStorageSize(function() {
+
+		// set local storage size
+		var el = document.getElementById('localSize');        
+		el.innerHTML = localStorage.getItem('size') + " KB";
+		localStorage.removeItem('size');
+
+		// set session storage size
+		var el = document.getElementById('sessionSize');        
+		el.innerHTML = sessionStorage.getItem('size') + " KB";
+		sessionStorage.removeItem('size');
+
+		document.getElementById("measureButton").innerHTML="Done!";
+	});
+}
+
+function updateText() {
+	document.getElementById("measureButton").innerHTML="measuring ...";
 }

@@ -11,6 +11,18 @@
 		<h1>Webstorage explorer</h1>
 
 
+		<div id="size-container" class="container">
+			<h3>Storage size</h3>
+			<table>
+				<tbody>
+					<tr><th>Local storage</th><td><span id="localSize"></span></td></tr>
+					<tr><th>Session storage</th><td><span id="sessionSize"></span></td></tr>
+				</tbody>
+			</table>
+			<br>
+			<button type="button" id="measureButton" onmousedown="updateText()" onclick="showStorageSize();">Measure size (writes to web storage)</button>
+		</div>
+
 		<div id="write-container" class="container">
 			<h3>Write</h3>
 			<div id="form">
@@ -46,8 +58,6 @@
 				<tbody id="session">
 				</tbody>
 			</table>
-
-
 		</div>
 	</body>
 </html>
