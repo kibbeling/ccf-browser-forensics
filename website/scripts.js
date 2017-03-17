@@ -82,6 +82,11 @@ function checkStorageSize(callback) {
 			for (i = 0; i <= 10000; i += 250) {
 				localStorage.setItem('test', gen(i));
 			}
+
+			// if the for-loop didn't throw an exception,
+			// the storage size is most likely infinite
+			sessionStorage.setItem('size', 'infinite');
+
 		} catch (e) {
 			localStorage.removeItem('test');
 			localStorage.setItem('size', i ? i - 250 : 0);
@@ -93,15 +98,21 @@ function checkStorageSize(callback) {
 	if (!sessionStorage.getItem('size')) {
 		var i = 0;
 		try {
-			// Test up to 10 MB
+			// Test up to 15 MB
 			for (i = 0; i <= 10000; i += 250) {
 				sessionStorage.setItem('test', gen(i));
 			}
+
+			// if the for-loop didn't throw an exception,
+			// the storage size is most likely infinite
+			sessionStorage.setItem('size', 'infinite');
+
 		} catch (e) {
 			sessionStorage.removeItem('test');
 			sessionStorage.setItem('size', i ? i - 250 : 0);
 			
 		}
+
 	}
 
 	callback();
